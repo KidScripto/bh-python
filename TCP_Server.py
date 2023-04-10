@@ -1,8 +1,26 @@
 import socket
 import threading
+import sys, getopt
 
-IP = '0.0.0.0'
-PORT = 9998
+arg_list = sys.argv[1:]
+
+try:
+    opts, args = getopt.getopt(arg_list, "I:P:")
+except getopt.GetoptError as err:
+    printf(f"The following error was encountered during execution:\n{err}")
+    exit()
+
+for opt, arg in opts:
+    if opt in ['-I']:
+        IP = arg
+    elif opt in ['-P']:
+        try:
+            PORT = int(arg)
+        except:
+            print(f"The following error was encountered during execution:\nCould not cast -P argument to int. Please enter a valid port number.")
+            exit()
+    else:
+        print("Please define the IP (-I) and port (-P) parameters")
 
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
