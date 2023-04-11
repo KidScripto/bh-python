@@ -12,8 +12,9 @@ parser.add_argument("-d", "--Domain", help="Target domain", type=str, required=F
 parser.add_argument("-of", "--OutputFile", help="Output director", type=str, required=True)
 parser.add_argument("-if", "--InputFile", help="Pass a worldist file of different domains to try", required=False)
 args = parser.parse_args()
+
 # Function Definitions
-def search_domain(args.Domain):
+def search_domain(domain):
     # Use Google search to find email addresses associated with the domain
     url = f"https://www.google.com/search?q=%40{args.Domain}&oq=%40{args.Domain}&aqs=chrome.0.35i39l2j0l4j46j69i60.9157j1j7&sourceid=chrome&ie=UTF-8"
     response = requests.get(url)
@@ -27,7 +28,7 @@ def search_domain(args.Domain):
             emails.append(email.split(":")[1])
     return emails
 
-def export_to_csv(emails, args.Domain):
+def export_to_csv(emails, domain):
     # Export the email addresses to a CSV file
     with open(f"{args.Domain}.csv", "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -35,7 +36,7 @@ def export_to_csv(emails, args.Domain):
         for email in emails:
             csvwriter.writerow([email])
 
-def search_list(args.InputFile):
+def search_list(InputFile):
     with open(args.InputFile, "r", newline="") as file:
         for line in file:
             url = f"https://www.google.com/search?q=%40{line}&oq=%40{line}&aqs=chrome.0.35i39l2j0l4j46j69i60.9157j1j7&sourceid=chrome&ie=UTF-8"
