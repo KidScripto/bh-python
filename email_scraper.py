@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 # Argparser
 parser = argparse.ArgumentParser(description="Receive arguments regarding target domain(s) and directory to place output csv file.")
 parser.add_argument("-d", "--Domain", help="Target domain", type=str, required=False)
-parser.add_argument("-of", "--OutputFile", help="Output director", type=str, required=True)
+parser.add_argument("-of", "--OutputFilepath", help="Output directory", type=str, required=True)
 parser.add_argument("-if", "--InputFile", help="Pass a worldist file of different domains to try", required=False)
 args = parser.parse_args()
 
@@ -56,7 +56,7 @@ if __name__ == "__main__":  ### Implement flow control to execute different func
     if len(sys.argv) < 2:
         print("Please specify a domain name")
         sys.exit()
-    domain = sys.argv[1]
+    #domain = sys.argv[1]
     emails = search_domain(args.Domain)
     export_to_csv(emails, args.Domain)
-    print(f"{len(emails)} email addresses associated with {domain} have been exported to {domain}.csv")
+    print(f"{len(emails)} email addresses associated with {args.Domain} have been exported to {args.Domain}.csv")
