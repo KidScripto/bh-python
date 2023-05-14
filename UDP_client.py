@@ -13,4 +13,4 @@ client.sendto(b"AAABBBCCC", (target_host, target_port))
 data, addr = client.recvfrom(4096)
 
 print(data.decode())
-client.close()
+client.close)
